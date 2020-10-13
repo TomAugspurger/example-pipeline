@@ -1,4 +1,5 @@
 from prefect import Flow, task
+from prefect.environments.storage import GitHub
 from pangeo_forge.pipelines.base import AbstractPipeline
 
 
@@ -30,6 +31,10 @@ class Pipeline(AbstractPipeline):
             consolidate(transformed)
 
         return flow
+
+    @property
+    def storage(self): 
+        return GitHub("tomaugspurger/example-pipeline", path="recipe/pipeline.py")
 
 
 pipeline = Pipeline()
