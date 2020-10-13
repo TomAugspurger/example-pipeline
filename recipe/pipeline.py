@@ -4,13 +4,9 @@ from pangeo_forge.pipelines.base import AbstractPipeline
 
 
 @task
-def upper(s):
+def upper(s: str) -> str:
     return s.upper()
 
-
-@task
-def consolidate(values):
-    return sum(values)
 
 
 class Pipeline(AbstractPipeline):
@@ -27,8 +23,7 @@ class Pipeline(AbstractPipeline):
     @property
     def flow(self) -> Flow:
         with Flow(self.name) as flow:
-            transformed = upper.map(self.sources)
-            consolidate(transformed)
+            upper.map(self.sources)
 
         return flow
 
