@@ -1,5 +1,5 @@
 from prefect import Flow, task
-from pangeo_forge import AbstractPipeline
+from pangeo_forge.pipelines.base import AbstractPipeline
 
 
 @task
@@ -27,7 +27,9 @@ class Pipeline(AbstractPipeline):
     def flow(self) -> Flow:
         with Flow(self.name) as flow:
             transformed = upper.map(self.sources)
-            consolidated = consolidate(transformed)
-            print(consolidated)
+            consolidate(transformed)
 
         return flow
+
+
+pipeline = Pipeline()
