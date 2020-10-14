@@ -1,3 +1,4 @@
+import uuid
 import fsspec
 from prefect import Flow, task
 from pangeo_forge.pipelines.base import AbstractPipeline
@@ -10,7 +11,7 @@ def upper(s: str) -> str:
 
 @task
 def write(x: str):
-    dest = "gs://pangeo-forge-scratch/example-pipeline.txt"
+    dest = f"gs://pangeo-forge-scratch/example-pipeline/{x}/{str(uuid.uuid1())[:5]}.txt"
     with fsspec.open(dest, "wb") as f:
         f.write(x.encode())
 
