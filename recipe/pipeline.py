@@ -1,3 +1,4 @@
+import fsspec
 from prefect import Flow, task
 from pangeo_forge.pipelines.base import AbstractPipeline
 
@@ -5,6 +6,13 @@ from pangeo_forge.pipelines.base import AbstractPipeline
 @task
 def upper(s: str) -> str:
     return s.upper()
+
+
+@task
+def write(x: str):
+    dest = "gs://pangeo-forge-scratch/example-pipeline.txt"
+    with fsspec.open(dest, "wb") as f:
+        f.write(x.encode())
 
 
 class Pipeline(AbstractPipeline):
@@ -22,7 +30,8 @@ class Pipeline(AbstractPipeline):
     @property
     def flow(self) -> Flow:
         with Flow(self.name) as flow:
-            upper.map(self.sources)
+            transformed = upper.map(self.sources)
+            transformed.map(write)
 
         return flow
 
