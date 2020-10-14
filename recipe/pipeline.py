@@ -8,7 +8,6 @@ def upper(s: str) -> str:
     return s.upper()
 
 
-
 class Pipeline(AbstractPipeline):
     name = "example-pipeline"
 
@@ -28,8 +27,10 @@ class Pipeline(AbstractPipeline):
         return flow
 
     @property
-    def storage(self): 
-        return GitHub("tomaugspurger/example-pipeline", path="recipe/pipeline.py")
+    def storage(self):
+        return GitHub("tomaugspurger/example-pipeline",
+                      path="recipe/pipeline.py")
 
 
 pipeline = Pipeline()
+flow = pipeline.flow
