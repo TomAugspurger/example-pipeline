@@ -1,5 +1,4 @@
 from prefect import Flow, task
-from prefect.environments.storage import GitHub
 from pangeo_forge.pipelines.base import AbstractPipeline
 
 
@@ -10,6 +9,7 @@ def upper(s: str) -> str:
 
 class Pipeline(AbstractPipeline):
     name = "example-pipeline"
+    repo = "TomAugspurger/example-pipeline"
 
     @property
     def sources(self):
@@ -25,11 +25,6 @@ class Pipeline(AbstractPipeline):
             upper.map(self.sources)
 
         return flow
-
-    @property
-    def storage(self):
-        return GitHub("tomaugspurger/example-pipeline",
-                      path="recipe/pipeline.py")
 
 
 pipeline = Pipeline()
