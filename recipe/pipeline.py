@@ -30,8 +30,9 @@ class Pipeline(AbstractPipeline):
     @property
     def flow(self) -> Flow:
         with Flow(self.name) as flow:
-            transformed = upper.map(self.sources)
-            transformed.map(write)
+            a = upper.map(self.sources)
+            write.map(a)
+
 
         return flow
 
