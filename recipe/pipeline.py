@@ -22,15 +22,17 @@ class Pipeline(AbstractPipeline):
 
     @property
     def sources(self):
-        return ['a', 'b', 'c']
+        return ["a", "b", "c"]
 
     @property
     def targets(self):
-        return ['A', 'B', 'C']
+        return ["A", "B", "C"]
 
     @property
     def flow(self) -> Flow:
-        with Flow(self.name, environment=self.environment, storage=self.storage) as flow:
+        with Flow(
+            self.name, environment=self.environment, storage=self.storage
+        ) as flow:
             a = upper.map(self.sources)
             write.map(a)
 
