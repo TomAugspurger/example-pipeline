@@ -35,5 +35,7 @@ class Pipeline(AbstractPipeline):
             write.map(a)
 
         return flow
-# pipeline = Pipeline()
-# flow = pipeline.flow
+
+
+pipeline = Pipeline()
+flow = pipeline.flow
