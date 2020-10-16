@@ -39,8 +39,9 @@ class Pipeline(AbstractPipeline):
 
         return flow
 
-if __name__ == "__main__":
-    pipe = Pipeline()
-    flow = pipe.flow
-    flow.storage = pipe.storage
-    flow.environment = pipe.environment
+
+# ----------------------------------------------------------------
+pipe = Pipeline()
+flow = pipe.flow
+flow.storage = pipe.storage
+flow.environment = pipe.environment
